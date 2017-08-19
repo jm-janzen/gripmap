@@ -26,3 +26,7 @@ class Floor(Cell):
     def __init__(self, *coords):
         Cell.__init__(self, ' ', *coords)
 
+class Door(Cell):
+    def __init__(self, *coords):
+        Cell.__init__(self, '+', *coords)
+

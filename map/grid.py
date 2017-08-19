@@ -1,4 +1,4 @@
-from map.cell import Cell, Wall, Floor
+from map.cell import Cell, Wall, Floor, Door
 
 class Grid():
 
@@ -44,9 +44,12 @@ class Grid():
         return ret
 
 class Room(Grid):
+
     def __init__(self, *dim):
         """ Init Grid with Wall, Floor Cells """
         Grid.__init__(self, *dim)
+
+        self.doors = []
 
         # Draw Grid with Wall & Floor Cells
         for row in range(self.height):
@@ -58,7 +61,16 @@ class Room(Grid):
                 elif col == self.width - 1:     self.add_cell(Wall(col, row))   # Right
                 else:                           self.add_cell(Floor(col, row))  # Floor
 
-    def opening(self, *coords):
-        """ TODO Punch hole in a Wall """
-        pass
+    def add_door(self, *coords):
+        """ Punch hole in a Wall
+        
+        TODO Validate is actually in a wall.
+        
+        """
+
+        # Add to list of doors
+        self.doors.append(Door(*coords))
+
+        # Add to primitive parent
+        self.add_cell(Door(*coords))
 
