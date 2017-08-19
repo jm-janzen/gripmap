@@ -1,4 +1,4 @@
-from map.cell import Cell
+from map.cell import Cell, Wall, Floor
 
 class Grid():
 
@@ -9,7 +9,11 @@ class Grid():
         self.width, self.height = dim
 
     def add_cell(self, cell):
-        """ Validate and assign Cell at given coords """
+        """ Validate and assign Cell at given coords
+        
+        TODO Accept Cell obj, or anything with appropriate members
+        
+        """
         if cell.x > self.width or cell.y > self.height:
             raise ValueError(f"Cell({cell.x}, {cell.y}) is out of bounds ({self.width}, {self.height})")
 
@@ -39,6 +43,22 @@ class Grid():
             ret += '\n'
         return ret
 
-if __name__ == "__main__":
-    g = Grid(2,2)
-    print(str(g))
+class Room(Grid):
+    def __init__(self, *dim):
+        """ Init Grid with Wall, Floor Cells """
+        Grid.__init__(self, *dim)
+
+        # Draw Grid with Wall & Floor Cells
+        for row in range(self.height):
+            for col in range(self.width):
+
+                if row == 0:                    self.add_cell(Wall(col, row))   # Top
+                elif row == self.height - 1:    self.add_cell(Wall(col, row))   # Bottom
+                elif col == 0:                  self.add_cell(Wall(col, row))   # Left
+                elif col == self.width - 1:     self.add_cell(Wall(col, row))   # Right
+                else:                           self.add_cell(Floor(col, row))  # Floor
+
+    def opening(self, *coords):
+        """ TODO Punch hole in a Wall """
+        pass
+
