@@ -1,13 +1,13 @@
 
 class Cell():
-    def __init__(self, char, *coords):
+    def __init__(self, char, *pos):
         """ Set display character, and (x,y) coordinates
 
         TODO Accept optional z-axis (or default 0)
 
         """
         self.char      = char
-        self.x, self.y = coords
+        self.pos       = pos
 
     def validate(cell):
         """ TODO Validate that object is type of Cell,
@@ -19,14 +19,14 @@ class Cell():
         return str(self.__dict__)
 
 class Wall(Cell):
-    def __init__(self, *coords):
-        Cell.__init__(self, '█', *coords)
+    def __init__(self, *pos):
+        Cell.__init__(self, '█', *pos)
 
 class Floor(Cell):
-    def __init__(self, *coords):
-        Cell.__init__(self, ' ', *coords)
+    def __init__(self, *pos):
+        Cell.__init__(self, ' ', *pos)
 
 class Door(Cell):
-    def __init__(self, *coords):
-        Cell.__init__(self, '+', *coords)
+    def __init__(self, *pos):
+        Cell.__init__(self, '+', *pos)
 
